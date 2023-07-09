@@ -2,28 +2,24 @@
  * @file Archivo de definiciones de tipos
  */
 
-import type { Cliente } from './Cliente'
-import type { Empleado } from './Empleado'
-import type { Producto } from './Producto'
+import type { Cliente } from './Classes/Cliente'
+import type { Empleado } from './Classes/Empleado'
+import type { Producto } from './Interfaces/Producto'
 
 /**
  * Representa las propiedades del producto base de la aplicación
  */
-export type PropiedadesProducto = {
-  medidas: {
-    ancho: number
-    alto: number
-  }
+export type Medidas ={
+  ancho: number
+  alto: number
 }
 
 /**
  * Representa las propiedades de un producto de tipo ventana dentro de la aplicación
  */
 export type PropiedadesVentana = {
-  propsSuper: PropiedadesProducto
-  numeroCuerpos: number
+  super: Medidas
   exterior: boolean
-  partesVentana: PartesVentana
 }
 
 /**
@@ -59,8 +55,4 @@ export type InformacionEmpleado = {
   correoPrincipal: string
   telefonoPrincipal: string
   contrasena: string
-}
-
-export type PropiedadesCarrito = {
-  realizador: Empleado
 }

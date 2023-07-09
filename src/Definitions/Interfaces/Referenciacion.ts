@@ -1,6 +1,6 @@
 export abstract class Referenciacion {
   referencias = new Map<string, number>()
-  refertenciaSeleccionada: string = ''
+  refertenciaSeleccionada: string | undefined = undefined
 
   agregarReferencia (referencia: { nombre: string, precio: number }): string {
     if (this.referencias.has(referencia.nombre)) {

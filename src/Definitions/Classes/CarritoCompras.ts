@@ -1,7 +1,7 @@
-import type { PropiedadesCarrito } from './types'
 import type { Empleado } from './Empleado'
-import { Producto } from './Producto'
+import { Producto } from '../Interfaces/Producto'
 import { Cliente } from './Cliente'
+import { CalculoAluminio } from './CalculoAluminio'
 
 /**
  * Representa el modelo de un carrito de compras dentro de la aplicación
@@ -15,18 +15,20 @@ export class CarritoCompras {
   datosCompradopr: Cliente | undefined
   empleadoRealizador: Empleado
 
-  constructor(props: PropiedadesCarrito) {
+  constructor(realizador: Empleado) {
     this.precioNeto = 0
     this.descuento = 0
     this.precioTotal = 0
     this.listaProductos = []
     this.datosCompradopr = undefined
-    this.empleadoRealizador = props.realizador
+    this.empleadoRealizador = realizador
   }
 
-  /**
-   * Calcula el precio neto de la compra a través del listado de productos que se encuentran en el arreglo {listadoProductos}
-   */
+  calcularAluminioProductos(): number {
+    const manejador = new CalculoAluminio();
+    return manejador.sumatoriaAluminio(this.listaProductos);
+  }
+
   calcularPrecioNeto(): void {
     let precioNeto = 0
     this.listaProductos.forEach(producto => {
@@ -35,11 +37,6 @@ export class CarritoCompras {
     this.precioNeto = precioNeto
   }
 
-  /**
-   * Calcula el precio total de la compra a través del precio neto y el descuento que se le aplique
-   * 1. SI el descuento es menor o igual a 1, se le aplicará un descuento porcentual
-   * 2. SI el descuento es mayor a 1 y menor o igual al precio neto, se le aplicará un descuento en valor
-   */
   calcularPrecioTotal(): void {
     if (this.descuento <= 1) {
       this.precioTotal = this.precioNeto - (this.precioNeto * this.descuento)
@@ -50,18 +47,10 @@ export class CarritoCompras {
     }
   }
 
-  /**
-   * Agrega un producto al array {listadoProductos}
-   * @param producto el Producto que se desea agregar al array
-   */
-  agregarProducto(producto: Producto): void {
+  public agregarProducto(producto: Producto): void {
     this.listaProductos.push(producto)
   }
 
-  /**
-   * Busca eliminar un producto mediante su referencia cómo objeto
-   * @param producto Producto que se desea eliminar
-   */
   eliminarProducto(producto: Producto | number): void {
     if (producto instanceof Producto) {
       this.listaProductos = this.listaProductos.filter(prod => prod !== producto)
@@ -70,12 +59,6 @@ export class CarritoCompras {
     }
   }
 
-  /**
-   * Busca editar un producto del array mediante su indice en la lista
-   * @param index El indice del producto que se desea editar
-   * @param producto El producto que reemplazara el valor en el indice
-   * Debe tenerse en cuenta que para editar un producto, este debe ser del mismo tipo que el que se encuentra en el array, de lo contrario no tendría sentido la edición.
-   */
   editarProducto(index: number, producto: Producto): void {
     this.listaProductos[index] = producto
   }

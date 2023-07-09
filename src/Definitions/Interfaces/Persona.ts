@@ -1,4 +1,4 @@
-import type { informacionPersonal } from './types'
+import type { informacionPersonal } from '../types'
 
 export abstract class Persona {
   informacionPersonal: informacionPersonal
