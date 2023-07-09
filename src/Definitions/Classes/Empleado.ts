@@ -1,5 +1,5 @@
-import { Persona } from './Persona'
-import type { InformacionEmpleado } from './types'
+import { Persona } from '../Interfaces/Persona'
+import type { InformacionEmpleado } from '../types'
 
 export class Empleado extends Persona {
   correoPrincipal: string

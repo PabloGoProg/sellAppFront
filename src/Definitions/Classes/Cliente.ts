@@ -1,5 +1,5 @@
-import { Persona } from './Persona'
-import type { informacionPersonal } from './types'
+import { Persona } from '../Interfaces/Persona'
+import type { informacionPersonal } from '../types'
 
 export class Cliente extends Persona {
   constructor(props: informacionPersonal) {

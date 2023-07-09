@@ -1,4 +1,4 @@
-import { Referenciacion } from './Referenciacion'
+import { Referenciacion } from '../Interfaces/Referenciacion'
 
 export class ComponenteProducto extends Referenciacion {
   nombre: string
