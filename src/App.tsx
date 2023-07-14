@@ -23,30 +23,33 @@ function App (): JSX.Element {
 
   const miVenta = new Ventana({
     super: {
-      alto: 1.90,
-      ancho: 2
+      alto: 2,
+      ancho: 1.90
     },
-    exterior: false
+    exterior: true,
+    numeroCuerpos: 3
   })
 
-  miVenta.aluminio = al1
+  miVenta.aluminio = al2
 
   const miVenta2 = new Ventana({
     super: {
-      alto: 1.20,
-      ancho: 1.40
+      alto: 1.50,
+      ancho: 1.20
     },
-    exterior: false
+    exterior: false,
+    numeroCuerpos: 2
   })
 
   miVenta2.aluminio = al2
 
   const miVenta3 = new Ventana({
     super: {
-      alto: 1.80,
-      ancho: 1.40
+      alto: 1.40,
+      ancho: 1.80
     },
-    exterior: false
+    exterior: true,
+    numeroCuerpos: 2
   })
 
   miVenta3.aluminio = al2
@@ -57,6 +60,8 @@ function App (): JSX.Element {
   miCarrito.agregarProducto(miVenta3);
 
   miCarrito.calcularAluminioProductos();
+
+  console.log(miCarrito)
 
   return (
     <h1> Hello </h1>

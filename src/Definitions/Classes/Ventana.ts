@@ -4,13 +4,11 @@ import { Producto } from '../Interfaces/Producto'
 export class Ventana extends Producto {
   numeroCuerpos: number
   exterior: boolean
-  partesVentana: PartesVentana | {}
 
   constructor(props: PropiedadesVentana) {
     super(props.super)
-    this.numeroCuerpos = 0
+    this.numeroCuerpos = props.numeroCuerpos
     this.exterior = props.exterior
-    this.partesVentana = {}
     this.llenarPartesVentana()
   }
 
@@ -19,10 +17,13 @@ export class Ventana extends Producto {
       cabezal: this.medidas.ancho,
       jamba: this.medidas.alto * 2,
       traslape: this.medidas.alto * 2,
-      horizontales: {
-        superior: this.medidas.ancho,
-        inferior: this.medidas.ancho
-      }
+      horizontalSuperior: this.medidas.ancho,
+      horizontalInferior: this.medidas.ancho
+    }
+
+    if(this.numeroCuerpos > 1) {
+      if(this.numeroCuerpos === 2) creacionPartes.enganche = this.medidas.alto * 2;
+      if(this.numeroCuerpos === 3) creacionPartes.enganche = this.medidas.alto * 4;
     }
 
     if(this.exterior) {
@@ -31,7 +32,7 @@ export class Ventana extends Producto {
       creacionPartes.sillar = this.medidas.ancho
     }
 
-    this.partesVentana = creacionPartes
+    this.partes = creacionPartes
   }
 
   setNumeroCuerpos(numeroCuerpos: number): void {
@@ -50,7 +51,7 @@ export class Ventana extends Producto {
     return this.exterior;
   }
 
-  getPartesVentana(): PartesVentana | {} { 
-    return this.partesVentana;
+  getPartesVentana(): PartesVentana | {} {
+    return this.partes;
   }
 }
