@@ -20,6 +20,7 @@ export type Medidas ={
 export type PropiedadesVentana = {
   super: Medidas
   exterior: boolean
+  numeroCuerpos: number
 }
 
 /**
@@ -35,10 +36,8 @@ export type PartesVentana = {
   jamba: number
   traslape: number
   enganche?: number
-  horizontales: {
-    superior: number
-    inferior: number
-  }
+  horizontalSuperior: number
+  horizontalInferior: number
 }
 
 // --------------------------------------------------------------------------------------------------------

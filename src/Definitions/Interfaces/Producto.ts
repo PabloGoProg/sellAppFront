@@ -2,7 +2,7 @@ import { Referenciacion } from './Referenciacion'
 import { Aluminio } from '../Classes/Aluminio'
 import { Vidrio } from '../Classes/Vidrio'
 import type { ComponenteProducto } from '../Classes/ComponenteProducto'
-import type { Medidas } from '../types'
+import type { Medidas, PartesVentana } from '../types'
 
 /**
  * Representa de el modelo de un producto base de la aplicación
@@ -11,6 +11,7 @@ export abstract class Producto extends Referenciacion {
   precio: number
   medidas: { ancho: number, alto: number }
   componentes: Array<[ComponenteProducto, number]>
+  partes: PartesVentana | {}
   aluminio: Aluminio | undefined
   vidirio: Vidrio | undefined
 
@@ -19,6 +20,7 @@ export abstract class Producto extends Referenciacion {
     this.precio = 0
     this.medidas = base
     this.componentes = []
+    this.partes = {}
     this.aluminio = undefined
     this.vidirio = undefined
   }

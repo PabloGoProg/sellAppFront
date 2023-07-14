@@ -12,6 +12,7 @@ export class CarritoCompras {
   descuento: number
   precioTotal: number
   listaProductos: Producto[]
+  aluminioTotal: Map<string, number> | undefined
   datosCompradopr: Cliente | undefined
   empleadoRealizador: Empleado
 
@@ -21,12 +22,13 @@ export class CarritoCompras {
     this.precioTotal = 0
     this.listaProductos = []
     this.datosCompradopr = undefined
+    this.aluminioTotal = undefined
     this.empleadoRealizador = realizador
   }
 
-  calcularAluminioProductos(): number {
+  calcularAluminioProductos(): void {
     const manejador = new CalculoAluminio();
-    return manejador.sumatoriaAluminio(this.listaProductos);
+    this.aluminioTotal =  manejador.sumatoriaAluminio(this.listaProductos);
   }
 
   calcularPrecioNeto(): void {
