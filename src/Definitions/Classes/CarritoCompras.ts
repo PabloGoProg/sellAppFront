@@ -26,9 +26,11 @@ export class CarritoCompras {
     this.empleadoRealizador = realizador
   }
 
-  calcularAluminioProductos(): void {
+  calcularMateriales(): void {
     const manejador = new CalculoAluminio();
-    this.aluminioTotal =  manejador.sumatoriaAluminio(this.listaProductos);
+    const medidasMateriales =  manejador.sumatoriaAluminio(this.listaProductos);
+
+    this.aluminioTotal = medidasMateriales[0];
   }
 
   calcularPrecioNeto(): void {
