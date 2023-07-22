@@ -13,7 +13,7 @@ export abstract class Producto extends Referenciacion {
   componentes: Array<[ComponenteProducto, number]>
   partes: PartesVentana | {}
   aluminio: Aluminio | undefined
-  vidirio: Vidrio | undefined
+  vidrio: Vidrio | undefined
 
   constructor (base: Medidas) {
     super()
@@ -22,7 +22,7 @@ export abstract class Producto extends Referenciacion {
     this.componentes = []
     this.partes = {}
     this.aluminio = undefined
-    this.vidirio = undefined
+    this.vidrio = undefined
   }
 
   calcularPrecio (referencia: string): number | string {
@@ -58,11 +58,11 @@ export abstract class Producto extends Referenciacion {
   }
 
   getVidrio (): Vidrio | undefined {
-    return this.vidirio
+    return this.vidrio
   }
 
   setVidrio (vidrio: Vidrio): void {
-    this.vidirio = vidrio
+    this.vidrio = vidrio
   }
 
 }

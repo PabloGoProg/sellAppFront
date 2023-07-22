@@ -6,7 +6,11 @@ import { Material } from '../Interfaces/Material'
  */
 
 export class Vidrio extends Material {
+
+  dimensionesPlacas: { ancho: number, alto: number }[] 
+
   constructor (precio: number) {
     super(precio);
+    this.dimensionesPlacas = []
   }
 }
