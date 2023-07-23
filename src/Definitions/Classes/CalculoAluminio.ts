@@ -1,6 +1,6 @@
 import { Producto } from '../Interfaces/Producto'
 import { Aluminio } from './Aluminio'
-import { constantePerdida } from '../constantes'
+import { LIMITE_PERDIDA_MATERIAL, DIMENSIONES_LAMINA_VIDRIO } from '../constantes'
 import { Vidrio } from './Vidrio';
 import { Ventana } from './Ventana';
 
@@ -31,11 +31,25 @@ export class CalculoAluminio {
         else aluminioTotal.set(referencia, suma);
       })
 
+      listadoMaterial[1].forEach(listadoVidrio => {
+
+        const sumaVidrio = this.sumarVidrioTotal(listadoVidrio);
+        const referencia = listadoVidrio[0].vidrio?.refertenciaSeleccionada as string;
+
+        if( vidrioTotal.has(referencia)) vidrioTotal.set(referencia, vidrioTotal.get(referencia) as number + sumaVidrio);
+        else vidrioTotal.set(referencia, sumaVidrio);
+      })
+
     })
 
     return [aluminioTotal, vidrioTotal];
   }
 
+  /**
+   * Se encarga de sumar todas las partes de aluminio de un conjunto de productos de un tipo y aluminio determinados
+   * @param productos
+   * @returns El proceso de validación de perdida de material tras sumar las partes de aluminio
+   */
   sumaPartes(productos: Producto[]): number {
     const suma = new Map<string, number>();
 
@@ -50,36 +64,61 @@ export class CalculoAluminio {
     return this.validarPerdidaMaterial(suma);
   }
 
-  sumarVidrio(productos: Ventana[]): Map<string, number> {
-    const suma = new Map<string, number>();
+  sumarVidrioTotal(productos: Producto[]): number {
+    let suma = 0;
+
+    if(productos[0] instanceof Ventana) suma = this.sumaVidrioVentana(productos as Ventana[])
+
+    return suma;
+  }
+
+  sumaVidrioVentana(productos: Ventana[]): number {
+    let suma = 0;
+
+    const calcularMedidaCuerpo = (medidas: { ancho: number, alto: number }, nCuerpos: number ): number => {
+      let medidaAjustada = medidas.ancho / nCuerpos;
+
+      if( Number(medidaAjustada.toFixed(1)) < medidaAjustada) return Number(medidaAjustada.toFixed(1)) + 0.1;
+      else return Number(medidaAjustada.toFixed(1));
+    }
 
     productos.forEach(p => {
-      let anchoPaneles = p.medidas.ancho / p.numeroCuerpos;
-      
-      if(Number(anchoPaneles.toFixed(1)) < anchoPaneles) anchoPaneles = Number((anchoPaneles + 0.1).toFixed(1));
-      else anchoPaneles = Number(anchoPaneles.toFixed(1));
-      
+      let medidasAjustadas = {
+        ancho: calcularMedidaCuerpo(p.medidas, p.numeroCuerpos),
+        alto: p.medidas.alto
+      }
+
+      medidasAjustadas = this.validarPerdidaVidirio(medidasAjustadas);
+
+      suma += Number((medidasAjustadas.ancho * medidasAjustadas.alto).toFixed(1)) * p.numeroCuerpos;
+
     })
 
     return suma;
   }
 
-  // validarDImsensionesVidrio(ventana: Ventana, anchoPanel: number): number {
-  //   anchoPanel = anchoPanel * ventana.numeroCuerpos;
-
-  // }
+  validarPerdidaVidirio(medidas: { ancho: number, alto: number } ): { ancho: number, alto: number } {
+    if(medidas.alto > DIMENSIONES_LAMINA_VIDRIO.ALTO && medidas.ancho <= DIMENSIONES_LAMINA_VIDRIO.ANCHO) {
+      if(medidas.alto > DIMENSIONES_LAMINA_VIDRIO.ANCHO - LIMITE_PERDIDA_MATERIAL) medidas.alto = DIMENSIONES_LAMINA_VIDRIO.ANCHO;
+      if(medidas.ancho > DIMENSIONES_LAMINA_VIDRIO.ALTO - LIMITE_PERDIDA_MATERIAL) medidas.ancho = DIMENSIONES_LAMINA_VIDRIO.ALTO;
+    } else {
+      if(medidas.alto > DIMENSIONES_LAMINA_VIDRIO.ALTO - LIMITE_PERDIDA_MATERIAL) medidas.alto = DIMENSIONES_LAMINA_VIDRIO.ALTO;
+      if(medidas.ancho > DIMENSIONES_LAMINA_VIDRIO.ANCHO - LIMITE_PERDIDA_MATERIAL) medidas.ancho = DIMENSIONES_LAMINA_VIDRIO.ANCHO;
+    }
+    return medidas;
+  }
 
   /**
    * Valida que las sumas de medidas para cada parte de un conjunto de produtos se reflejen en medidas apropiadas para el corte de aluminio
    * @param partes Un mapa que tiene el listado de partes de un segmento de productos junto a la suma de sus medidas
-   * @returns 
+   * @returns la suma de aluminio de determinada referencia
    */
   validarPerdidaMaterial(partes: Map<string, number>): number {
     let sumaTotal = 0;
 
     partes.forEach((value, key) => {
       const valorAproximado = Number(value.toFixed(0));
-      if(value < valorAproximado && value >= valorAproximado - constantePerdida) partes.set(key, valorAproximado);
+      if(value < valorAproximado && value >= valorAproximado - LIMITE_PERDIDA_MATERIAL) partes.set(key, valorAproximado);
       else if(valorAproximado < value && Math.round(((value - valorAproximado)) * 100) / 100 >= 0.2) partes.set(key, (valorAproximado + 0.5)); 
       sumaTotal += partes.get(key) as number;
     })
@@ -87,6 +126,11 @@ export class CalculoAluminio {
     return sumaTotal;
   }
   
+  /**
+   * Sepata una lista de productos según las refrencias de vidrio y aluminio que tengan
+   * @param productos una lista de productos ordenado segu4n su tipo
+   * @returns una lista de dos posiciones, la primera es una lista con los conjuntos de aluminio y la segunda con los conjuntos de vidrio
+   */
   separarTipoMaterial(productos: Producto[]): [Producto[][], Producto[][]] {
     const referenciasAluminio: Producto[][] = [];
     const referenciasVidrio: Producto[][] = [];

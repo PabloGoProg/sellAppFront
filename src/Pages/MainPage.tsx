@@ -2,6 +2,7 @@ import { Aluminio } from '../Definitions/Classes/Aluminio';
 import { CarritoCompras } from '../Definitions/Classes/CarritoCompras'
 import { Empleado } from '../Definitions/Classes/Empleado'
 import { Ventana } from '../Definitions/Classes/Ventana';
+import { Vidrio } from '../Definitions/Classes/Vidrio';
 
 export function MainPage(): JSX.Element {
   
@@ -19,6 +20,8 @@ export function MainPage(): JSX.Element {
   al1.refertenciaSeleccionada = 'a1'
   const al2 = new Aluminio(20)
   al2.refertenciaSeleccionada = 'a2'
+  const v1 = new Vidrio(10)
+  v1.refertenciaSeleccionada = 'v1'
 
   const miVenta = new Ventana({
     super: {
@@ -30,6 +33,7 @@ export function MainPage(): JSX.Element {
   })
 
   miVenta.aluminio = al2
+  miVenta.vidrio = v1
 
   const miVenta2 = new Ventana({
     super: {
@@ -41,6 +45,7 @@ export function MainPage(): JSX.Element {
   })
 
   miVenta2.aluminio = al2
+  miVenta2.vidrio = v1
 
   const miVenta3 = new Ventana({
     super: {
@@ -52,15 +57,13 @@ export function MainPage(): JSX.Element {
   })
 
   miVenta3.aluminio = al2
+  miVenta3.vidrio = v1
 
   const miCarrito = new CarritoCompras(empleado1);
   miCarrito.agregarProducto(miVenta);
   miCarrito.agregarProducto(miVenta2);
   miCarrito.agregarProducto(miVenta3);
   miCarrito.calcularMateriales();
-
-  console.log(miCarrito.listaProductos)
-  console.log(miCarrito.aluminioTotal)
 
   return (
     <div className='text-blue-700'>
