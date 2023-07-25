@@ -1,6 +1,6 @@
 import { Producto } from '../Interfaces/Producto'
 import { Aluminio } from './Aluminio'
-import { LIMITE_PERDIDA_MATERIAL, DIMENSIONES_LAMINA_VIDRIO } from '../constantes'
+import { LIMITE_PERDIDA_MATERIAL, DIMENSIONES_LAMINA_VIDRIO } from '../../utils/constantes'
 import { Vidrio } from './Vidrio';
 import { Ventana } from './Ventana';
 

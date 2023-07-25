@@ -55,3 +55,10 @@ export type InformacionEmpleado = {
   telefonoPrincipal: string
   contrasena: string
 }
+
+export type infoCotizacion = {
+  nombreCliente: string
+  fecha: Date
+  numeroProductos: number
+  total: number
+}

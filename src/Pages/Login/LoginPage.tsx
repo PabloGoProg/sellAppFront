@@ -1,4 +1,4 @@
-import { Login } from '../Components/Login'
+import { Login } from './Login'
 
 export function LoginPage(): JSX.Element {
   return (
