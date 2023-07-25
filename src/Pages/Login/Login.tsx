@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { IMAGES } from "../const"
+import { IMAGES } from "../../utils/const"
 
 export function Login(): JSX.Element {
 
@@ -17,7 +17,7 @@ export function Login(): JSX.Element {
       <section
       className="bg-gradient-to-tl from-lapis_lazuli to-indigo_dye max-h-fit w-4/5 md: max-w-xl px-5 py-5 bg-platinium rounded-lg shadow-2xl">
 
-        <form className="flex flex-col w-full px-5 gap-2 my-3 sm:px-0">
+        <form className="flex flex-col w-full px-5 gap-2 my-3">
 
           <h2 
           className="text-center font-semibold text-xl sm:text-2xl md:text-3xl text-sky_blue antialiased mb-5">

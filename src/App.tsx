@@ -1,14 +1,15 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { MainPage } from './Pages/MainPage'
-import { LoginPage } from './Pages/LoginPage'
-import { PAGES } from './const';
+import { MainPage } from './Pages/Home/HomePage'
+import { LoginPage } from './Pages/Login/LoginPage'
+import { PAGES } from './utils/const';
+import { Header } from './Components/Header';
 
 function App (): JSX.Element {
   return (
     <>
       <BrowserRouter>
+        <Header />
         {/* Rutas principales */}
-
         <Routes>
           
           <Route path={PAGES.HOME} element={ <MainPage /> }/>

@@ -13,15 +13,15 @@ export class CarritoCompras {
   precioTotal: number
   listaProductos: Producto[]
   aluminioTotal: Map<string, number> | undefined
-  datosCompradopr: Cliente | undefined
+  datosComprador: Cliente
   empleadoRealizador: Empleado
 
-  constructor(realizador: Empleado) {
+  constructor(realizador: Empleado, cliente: Cliente) {
     this.precioNeto = 0
     this.descuento = 0
     this.precioTotal = 0
     this.listaProductos = []
-    this.datosCompradopr = undefined
+    this.datosComprador = cliente
     this.aluminioTotal = undefined
     this.empleadoRealizador = realizador
   }
@@ -88,7 +88,7 @@ export class CarritoCompras {
   }
 
   getCliente(): Cliente | undefined {
-    if (this.datosCompradopr instanceof Cliente) return this.datosCompradopr 
+    if (this.datosComprador instanceof Cliente) return this.datosComprador 
     return undefined
   }
 

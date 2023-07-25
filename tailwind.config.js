@@ -7,6 +7,10 @@ export default {
   theme: {
     colors: {
       transparent: "transparent",
+      white: "#ffffff",
+      black: "#000000",
+      green: "#007700",
+      red: "#ff0000",
       current: "currentColor",
       platinium: '#D9DCD6',
       cerulean: '#3a7ca5',
