@@ -5,10 +5,10 @@ export class Ventana extends Producto {
   numeroCuerpos: number
   exterior: boolean
 
-  constructor(props: PropiedadesVentana) {
-    super(props.super)
-    this.numeroCuerpos = props.numeroCuerpos
-    this.exterior = props.exterior
+  constructor() {
+    super()
+    this.numeroCuerpos = 0
+    this.exterior = false
     this.llenarPartesVentana()
   }
 

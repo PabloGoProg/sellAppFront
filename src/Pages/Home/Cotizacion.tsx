@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import type { infoCotizacion } from '../../Definitions/types'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SwitchAccountIcon from '@mui/icons-material/SwitchAccount';

@@ -7,8 +7,15 @@ import { Empleado } from '../../Definitions/Classes/Empleado'
 import { Ventana } from '../../Definitions/Classes/Ventana';
 import { Vidrio } from '../../Definitions/Classes/Vidrio';
 import { Cotizacion } from './Cotizacion';
+import { useNavigate } from 'react-router-dom';
 
-export function MainPage(): JSX.Element {
+export default function HomePage(): JSX.Element {
+
+  const navigate = useNavigate();
+
+  const handleAdd = () => {
+    navigate('/add');
+  }
   
   const empleado1 = new Empleado({
     infoPersonal: {
@@ -32,38 +39,17 @@ export function MainPage(): JSX.Element {
   const v1 = new Vidrio(10)
   v1.refertenciaSeleccionada = 'v1'
 
-  const miVenta = new Ventana({
-    super: {
-      alto: 2,
-      ancho: 1.90
-    },
-    exterior: true,
-    numeroCuerpos: 3
-  })
+  const miVenta = new Ventana();
 
   miVenta.aluminio = al2
   miVenta.vidrio = v1
 
-  const miVenta2 = new Ventana({
-    super: {
-      alto: 1.50,
-      ancho: 1.20
-    },
-    exterior: false,
-    numeroCuerpos: 2
-  })
+  const miVenta2 = new Ventana()
 
   miVenta2.aluminio = al2
   miVenta2.vidrio = v1
 
-  const miVenta3 = new Ventana({
-    super: {
-      alto: 1.40,
-      ancho: 1.80
-    },
-    exterior: true,
-    numeroCuerpos: 2
-  })
+  const miVenta3 = new Ventana()
 
   miVenta3.aluminio = al2
   miVenta3.vidrio = v1
@@ -86,7 +72,7 @@ export function MainPage(): JSX.Element {
 
       <section className='flex justify-center gap-2 my-2'>
         <SearchBar />  
-        <button className='min-w-[8%] bg-indigo_dye py-1 px-3 text-platinium text-lg rounded-lg hover:bg-cerulean shadow-xl transition-all'>
+        <button onClick={handleAdd} className='min-w-[8%] bg-indigo_dye py-1 px-3 text-platinium text-lg rounded-lg hover:bg-cerulean shadow-xl transition-all'>
           <AddIcon sx={{ fontSize: 35 }}/>
         </button>    
       </section>

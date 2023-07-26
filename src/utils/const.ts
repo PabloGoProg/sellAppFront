@@ -1,6 +1,7 @@
 export const PAGES = {
   HOME: '/',
   LOGIN: '/login',  
+  ADD: '/add',
 }
 
 export const IMAGES = {
