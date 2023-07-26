@@ -18,7 +18,6 @@ export type Medidas ={
  * Representa las propiedades de un producto de tipo ventana dentro de la aplicación
  */
 export type PropiedadesVentana = {
-  super: Medidas
   exterior: boolean
   numeroCuerpos: number
 }
