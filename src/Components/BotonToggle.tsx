@@ -3,8 +3,8 @@
 import { useState } from 'react'
 import { Switch } from '@headlessui/react'
 
-export default function BotonToggle() {
-  const [enabled, setEnabled] = useState(false)
+export default function BotonToggle(props: { encendido: boolean }) {
+  const [enabled, setEnabled] = useState(props.encendido)
 
   return (
     <div className="">

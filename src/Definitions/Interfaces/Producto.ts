@@ -15,10 +15,11 @@ export abstract class Producto extends Referenciacion {
   aluminio: Aluminio | undefined
   vidrio: Vidrio | undefined
 
-  constructor() {
+  constructor(medidas: { ancho: number, alto: number }, referencia: string) {
     super()
     this.precio = 0
-    this.medidas = { ancho: 0, alto: 0 }
+    this.medidas = medidas
+    this.refertenciaSeleccionada = referencia
     this.componentes = []
     this.partes = {}
     this.aluminio = undefined
