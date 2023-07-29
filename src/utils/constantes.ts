@@ -22,4 +22,12 @@ export const ClienteProvicional = new Cliente({
   apellido: 'Hernandez',
 })
 
+export const PRODUCTOS_MANEJADOS = ['Ventana', 'Puerta', 'Barandal'];
+
+export const REFRENCIAS_PROVICIONALES = {
+  VENTANA: ['7:44', '80:25'],
+  PUERTA: ['5:25', '100;20'],
+  BARANDAL: ['12:10', '8:25']
+}
+
 // colores https://coolors.co/2f6690-3a7ca5-d9dcd6-16425b-81c3d7

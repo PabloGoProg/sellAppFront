@@ -18,7 +18,7 @@ export function Cotizacion(props: infoCotizacion): JSX.Element {
   return (
     <section className="bg-platinium rounded-lg mx-auto my-2 px-5 py-2 shadow-xl w-[95%] h-fit antialiased" >
 
-      <section className='flex justify-between font-extrabold mb-2 gap-2 text-xs md:text-sm text-cerulean border-b-2 bottom-1'>
+      <section className='flex justify-between font-extrabold mb-2 gap-2 text-xs md:text-sm lg:text-base xl:text-xl text-cerulean border-b-2 bottom-1'>
         <p className='text-left'> {props.nombreCliente} </p>
         <p className='text-right'> {formatDate(props.fecha)} </p>
       </section>
@@ -29,7 +29,7 @@ export function Cotizacion(props: infoCotizacion): JSX.Element {
             <ShoppingCartIcon sx={{ fontSize: 50 }} />
           </section>
 
-          <section className='text-black w-full md:min-w-full text-xs font-semibold pl-2 md:pl-4 border-l' >
+          <section className='text-black w-full md:min-w-full text-xs md:text-sm lg:text-base font-semibold pl-2 md:pl-4 border-l' >
             <div className='flex justify-between'>
               <p>Numero de productos:</p>
               <p> {props.numeroProductos} </p>  

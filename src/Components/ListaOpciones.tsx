@@ -1,13 +1,30 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
+import { useSelección } from '../Hooks/Seleciones';
 import { Listbox, Transition } from '@headlessui/react'
 import CheckIcon from '@mui/icons-material/Check';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { REFRENCIAS_PROVICIONALES } from '../utils/constantes';
 
-export default function Example(props: { opciones: string[] }): JSX.Element {
-  const [selected, setSelected] = useState('Seleccione una opción')
+export default function ListaOpciones(props: { opciones: string[], base: string, isTargetting: boolean, target?: string }): JSX.Element {
+
+  const [selected, setSelected] = useState(props.base);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>(props.opciones);
+  const seleccion = useSelección();
+
+  useEffect(() => {
+    seleccion.actualizarSeleccion(props.base, selected);
+  }, [selected])
+
+  const handleOptions = () => {
+    if(props.isTargetting) {
+      if(seleccion.getSeleccion('Tipo de Producto') === 'Ventana') setSelectedOptions(REFRENCIAS_PROVICIONALES.VENTANA);
+      if(seleccion.getSeleccion('Tipo de Producto') === 'Puerta') setSelectedOptions(REFRENCIAS_PROVICIONALES.PUERTA);
+      if(seleccion.getSeleccion('Tipo de Producto') === 'Barandal') setSelectedOptions(REFRENCIAS_PROVICIONALES.BARANDAL); 
+    }
+  }
 
   return (
-    <div className="w-fit">
+    <div onClick={handleOptions} className="w-full">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative mt-1">
           <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
@@ -22,9 +39,10 @@ export default function Example(props: { opciones: string[] }): JSX.Element {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 hover:cursor-pointer focus:outline-none sm:text-sm">
-              {props.opciones.map((element) => (
+            <Listbox.Options className="absolute mt-1 max-h-60 z-20 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 hover:cursor-pointer focus:outline-none sm:text-sm">
+              {selectedOptions.map((element, key) => (
                 <Listbox.Option
+                  key={key}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
                       active ? 'bg-cerulean text-white' : 'text-black'

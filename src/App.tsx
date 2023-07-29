@@ -10,20 +10,20 @@ function App (): JSX.Element {
   return (
     <>
       <BrowserRouter>
-        <Header />
-        {/* Rutas principales */}
-        <Routes>
-          
-          <Route path={PAGES.HOME} element={ <HomePage /> }/>
-          <Route path={PAGES.LOGIN} element={ <LoginPage /> }/>
-          <Route path={PAGES.ADD} element={
-            <CarritoProvider>
-              <CotizacionesPage /> 
-            </CarritoProvider>
-          }/>
-          <Route path='*' element={ <h1>Not found</h1> }/>
+        <CarritoProvider>
 
-        </Routes>
+          <Header />
+          {/* Rutas principales */}
+          <Routes>
+            
+            <Route path={PAGES.HOME} element={ <HomePage /> }/>
+            <Route path={PAGES.LOGIN} element={ <LoginPage /> }/>
+            <Route path={PAGES.ADD} element={ <CotizacionesPage /> }/>
+            <Route path='*' element={ <h1>Not found</h1> }/>
+
+          </Routes>
+          
+        </CarritoProvider>
 
       </BrowserRouter>
     </>

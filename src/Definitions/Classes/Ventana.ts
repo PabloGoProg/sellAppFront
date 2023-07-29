@@ -5,8 +5,8 @@ export class Ventana extends Producto {
   numeroCuerpos: number
   exterior: boolean
 
-  constructor() {
-    super()
+  constructor(medidas: { ancho: number, alto: number }, referencia: string) {
+    super(medidas, referencia)
     this.numeroCuerpos = 0
     this.exterior = false
     this.llenarPartesVentana()

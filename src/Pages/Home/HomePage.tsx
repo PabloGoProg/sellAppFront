@@ -39,17 +39,17 @@ export default function HomePage(): JSX.Element {
   const v1 = new Vidrio(10)
   v1.refertenciaSeleccionada = 'v1'
 
-  const miVenta = new Ventana();
+  const miVenta = new Ventana({alto: 100, ancho: 100}, 'v1');
 
   miVenta.aluminio = al2
   miVenta.vidrio = v1
 
-  const miVenta2 = new Ventana()
+  const miVenta2 = new Ventana({alto: 100, ancho: 100}, 'v1')
 
   miVenta2.aluminio = al2
   miVenta2.vidrio = v1
 
-  const miVenta3 = new Ventana()
+  const miVenta3 = new Ventana({alto: 100, ancho: 100}, 'v1')
 
   miVenta3.aluminio = al2
   miVenta3.vidrio = v1

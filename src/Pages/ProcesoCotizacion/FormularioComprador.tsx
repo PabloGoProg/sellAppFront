@@ -35,7 +35,7 @@ export default function FormularioComprador(): JSX.Element {
             <p>Correo</p>  
           </section>
 
-          <BotonToggle />
+          <BotonToggle encendido={true} />
 
         </div>
         <div className="flex justify-between mx-[5%] md:mx-[10%] text:sm lg:text-lg xl:text-xl">
@@ -45,7 +45,7 @@ export default function FormularioComprador(): JSX.Element {
             <p>WhatsApp</p>
           </section>
 
-          <BotonToggle />
+          <BotonToggle encendido={true} />
 
         </div>
 
