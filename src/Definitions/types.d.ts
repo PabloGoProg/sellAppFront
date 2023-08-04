@@ -43,9 +43,9 @@ export type PartesVentana = {
 
 export type informacionPersonal = {
   nombre: string
-  apellido: string
-  correos?: string[]
-  telefonos?: string[]
+  correo?: string
+  telefono?: string
+  telefonoSecundario?: string
 }
 
 export type InformacionEmpleado = {

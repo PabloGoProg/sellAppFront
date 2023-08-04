@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 import { Disclosure } from '@headlessui/react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -11,6 +11,9 @@ export default function VentanaProductos(props: {producto: Producto}): JSX.Eleme
     setTitulo(`${props.producto.constructor.name} - ${props.producto.refertenciaSeleccionada}: ${props.producto.medidas.alto} m x ${props.producto.medidas.ancho} m`);
   }, [])
 
+  const handleDelete = (event: MouseEventHandler) => {
+    console.log(event)
+  }
 
   return (
     <div className="w-full px-4">
@@ -21,7 +24,7 @@ export default function VentanaProductos(props: {producto: Producto}): JSX.Eleme
               <Disclosure.Button className={`botton-borrar flex w-full justify-between rounded-lg px-4 bg-platinium py-2 text-left text-base font-medium text-black focus:outline-none focus-visible:ring focus-visible:ring-platinium focus-visible:ring-opacity-75 ${open ? 'shadow-2xl' : ''}`}>
                 <span> {titulo} </span>
                 <div className='flex space-x-3'>
-                  <button className='max-w-fit max-h-fit px-2 py-0.5 bg-cerulean text-platinium rounded-lg hover:shadow-2xl hover:bg-red hover:text-black transition-all'>
+                  <button id='buttonDelete' className='max-w-fit max-h-fit px-2 py-0.5 bg-cerulean text-platinium rounded-lg hover:shadow-2xl hover:bg-red hover:text-black transition-all'>
                     <DeleteIcon fontSize='small' />
                   </button>
                   <KeyboardArrowDownIcon

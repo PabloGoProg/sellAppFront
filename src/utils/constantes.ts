@@ -1,5 +1,6 @@
-import { Cliente } from "../Definitions/Classes/Cliente";
+
 import { Empleado } from "../Definitions/Classes/Empleado";
+import { Usuario } from "../Definitions/Classes/Usuario";
 
 export const LIMITE_PERDIDA_MATERIAL = 0.3;
 export const DIMENSIONES_LAMINA_VIDRIO = {
@@ -9,17 +10,15 @@ export const DIMENSIONES_LAMINA_VIDRIO = {
 
 export const EmpleadoProvicional = new Empleado({
   infoPersonal: {
-    nombre: 'Juan',
-    apellido: 'Perez'
+    nombre: 'Juan Perez',
   },
   correoPrincipal: 'juanperez@gmail.com',
   telefonoPrincipal: '1234567890',
   contrasena: '123456'
 });
 
-export const ClienteProvicional = new Cliente({
-  nombre: 'Mariana',
-  apellido: 'Hernandez',
+export const ClienteProvicional = new Usuario({
+  nombre: 'Mariana Hernandez',
 })
 
 export const PRODUCTOS_MANEJADOS = ['Ventana', 'Puerta', 'Barandal'];

@@ -1,45 +1,89 @@
 import { useState } from 'react'
-import { IMAGES } from "../../utils/const"
+import EmailIcon from '@mui/icons-material/Email'
+import LockIcon from '@mui/icons-material/Lock';
+import ModalContraseña from '../Login/ModalContraseña';
+import PersonIcon from '@mui/icons-material/Person';
 
 export function Login(): JSX.Element {
 
   const [forgotPassword, setForgotPassword] = useState<boolean>(false)
+  const [userData, setUserData] = useState({
+    correo: '',
+    contrasena: ''
+  })
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setUserData({
+      ...userData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    
+    const mailRegex = new RegExp('^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$');
+    const passwordRegex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+
+    if(mailRegex.test(userData.correo) && passwordRegex.test(userData.contrasena)) {
+      console.log('Datos correctos')
+    }
+
+  }
+
+
+  // *9999
+  // 018000517677  
   return (
     // Manjeador del fondo de la pantalla de login
     <section  
-    className="bg-gradient-to-tr from-platinium to-lapis_lazuli w-full h-screen bg-no-repeat bg-cover bg-center flex justify-center items-center bg-blend-screen"
-    style={{
-      backgroundImage: `linear-gradient(to top right, #868686, #001022), url(${IMAGES.LOGIN_BACKGROUND})`,
-    }}>
+    className="bg-gradient-to-tr from-blue-950 to-blue-800 w-full h-screen bg-no-repeat bg-cover bg-center flex justify-center items-center bg-blend-screen" >
 
       {/* Seccion del contenido del login */}
       <section
-      className="bg-gradient-to-tl from-lapis_lazuli to-indigo_dye max-h-fit w-4/5 md: max-w-xl px-5 py-5 bg-platinium rounded-lg shadow-2xl">
+      className="bg-white max-h-fit w-4/5 sm:w-3/5 md:w-2/5 px-1 py-5 rounded-md shadow-lg">
+        <form onSubmit={handleSubmit} className="flex flex-col w-full px-4 gap-2 my-3">
 
-        <form className="flex flex-col w-full px-5 gap-2 my-3">
-
-          <h2 
-          className="text-center font-semibold text-xl sm:text-2xl md:text-3xl text-sky_blue antialiased mb-5">
-            Bienvenido nuevamente!
-          </h2>
-
-          <div className="flex flex-col">
-            <label about="correo" className="block antialiased text-sky_blue text-base mb-1 sm:text-sm">Correo Electronico</label>
-            <input type="text" id="username" 
-            className="border w-full px-2 py-1 text-base bg-platinium focus:outline-none border-none rounded-lg focus:ring-0 focus:border-lapis_lazuli" placeholder="Ingrese su correo" />
+          <div className='flex gap-1 justify-center items-center mb-5'>
+            <PersonIcon fontSize='large' />
+            <h2 
+            className="font-semibold text-xl md:text-2xl antialiased">
+              Bienvenido
+            </h2>
           </div>
 
-          <div className="flex flex-col mb-8">
-            <label about="password" className="block antialiased text-sky_blue text-base sm:text-sm mb-1">Contraseña de usuario</label>
-            <input type="password" id="password" 
-            className="w-full px-2 py-1 text-base bg-platinium focus:outline-none rounded-lg border-none focus:ring-0 focus:border-lapis_lazuli" placeholder="Ingrese su contraseña" />
+          <div className='relative flex items-center text-gray-400 focus-within:text-gray-600 transition-all'>
+            <EmailIcon className="absolute ml-2" />
+            <input 
+            className="border w-full px-10 py-1 text-sm md:text-base bg-gray-200 focus:outline-none border-none rounded-md focus:ring-0 focus:border-lapis_lazuli" 
+            placeholder="Correo electronico" 
+            name='correo'
+            required
+            onChange={handleChange}
+            type="text" />
+          </div>
+
+          <div className="relative flex items-center text-gray-400 focus-within:text-gray-600 transition-all">
+            <LockIcon className="absolute ml-2" />
+            <input 
+            className="w-full px-10 py-1 text-sm md:text-base bg-gray-200 focus:outline-none rounded-md border-none focus:ring-0 focus:border-lapis_lazuli" placeholder="Contraseña" 
+            type="password" 
+            required
+            name='contrasena'
+            onChange={handleChange} />
           </div>
           {/* <a className="text-sky_blue mb-8 text-right py-0 text-sm antialiased sm:text-xs" href="http://www.google.com">Has olvidado tu contraseña?</a> */}
-          <button
-          className="w-full bg-indigo_dye py-1 text-platinium text-lg rounded-lg hover:bg-cerulean shadow-xl transition-all">Inciar sesión</button>
+          <button 
+          className="w-full mt-5 bg-blue-600 py-1 text-white text-lg rounded-md hover:bg-cerulean shadow-xl hover:bg-blue-800 transition-all">
+            Inciar sesión
+          </button>
 
         </form>
+
+        <div className="flex justify-center items-center mt-10">
+          <ModalContraseña />
+        </div>
 
       </section>
 

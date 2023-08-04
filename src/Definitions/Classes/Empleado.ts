@@ -1,7 +1,7 @@
-import { Persona } from '../Interfaces/Persona'
+import { Usuario } from './Usuario'
 import type { InformacionEmpleado } from '../types'
 
-export class Empleado extends Persona {
+export class Empleado extends Usuario {
   correoPrincipal: string
   telefonoPrincipal: string
   contrasena: string
