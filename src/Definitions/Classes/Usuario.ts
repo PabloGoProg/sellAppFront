@@ -1,6 +1,6 @@
 import type { informacionPersonal } from '../types'
 
-export abstract class Persona {
+export class Usuario {
   informacionPersonal: informacionPersonal
 
   constructor (informacionPersonal: informacionPersonal) {

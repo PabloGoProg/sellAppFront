@@ -1,7 +1,7 @@
 import type { Empleado } from './Empleado'
 import { Producto } from '../Interfaces/Producto'
-import { Cliente } from './Cliente'
 import { CalculoAluminio } from './CalculoAluminio'
+import { Usuario } from './Usuario'
 
 /**
  * Representa el modelo de un carrito de compras dentro de la aplicación
@@ -13,10 +13,10 @@ export class CarritoCompras {
   precioTotal: number
   listaProductos: Producto[]
   aluminioTotal: Map<string, number> | undefined
-  datosComprador: Cliente
+  datosComprador: Usuario
   empleadoRealizador: Empleado
 
-  constructor(realizador: Empleado, cliente: Cliente) {
+  constructor(realizador: Empleado, cliente: Usuario) {
     this.precioNeto = 0
     this.descuento = 0
     this.precioTotal = 0
@@ -87,8 +87,8 @@ export class CarritoCompras {
     return this.listaProductos
   }
 
-  getCliente(): Cliente | undefined {
-    if (this.datosComprador instanceof Cliente) return this.datosComprador 
+  getCliente(): Usuario | undefined {
+    if (this.datosComprador instanceof Usuario) return this.datosComprador 
     return undefined
   }
 

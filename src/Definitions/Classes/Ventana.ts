@@ -1,4 +1,4 @@
-import type { PartesVentana, PropiedadesVentana } from '../types'
+import type { PartesVentana } from '../types'
 import { Producto } from '../Interfaces/Producto'
 
 export class Ventana extends Producto {
@@ -37,6 +37,7 @@ export class Ventana extends Producto {
 
   setNumeroCuerpos(numeroCuerpos: number): void {
     this.numeroCuerpos = numeroCuerpos;
+    this.llenarPartesVentana();
   }
 
   getNumeroCuerpos(): number {
