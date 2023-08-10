@@ -70,11 +70,21 @@ export default function HomePage(): JSX.Element {
 
       <section className='flex justify-center gap-2 my-2'>
         <SearchBar />  
-        <button onClick={handleAdd} className='min-w-[8%] bg-indigo_dye py-1 px-3 text-platinium text-lg rounded-lg hover:bg-cerulean shadow-xl transition-all'>
-          <AddIcon sx={{ fontSize: 35 }}/>
+        <button onClick={handleAdd} className='fixed bottom-5 z-20 right-5 w-fit bg-blue-500 px-1.5 py-1.5 text-white font-extrabold text-lg rounded-full hover:bg-blue-800 shadow-xl transition-all'>
+          <AddIcon fontSize='large'/>
         </button>    
       </section>
 
+      <Cotizacion 
+      fecha={infCot.fecha}
+      nombreCliente={infCot.nombreCliente}
+      numeroProductos={infCot.numeroProductos}
+      total={infCot.total} />
+      <Cotizacion 
+      fecha={infCot.fecha}
+      nombreCliente={infCot.nombreCliente}
+      numeroProductos={infCot.numeroProductos}
+      total={infCot.total} />
       <Cotizacion 
       fecha={infCot.fecha}
       nombreCliente={infCot.nombreCliente}

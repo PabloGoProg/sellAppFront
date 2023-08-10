@@ -170,7 +170,7 @@ export default function FormularioComprador(): JSX.Element {
             type="text" 
             id="userNumber" />
           </div>
-          <button className='w-full bg-indigo_dye rounded-lg py-2 mt-4 hover:shadow-lg hover:bg-cerulean text-platinium transition-all'>
+          <button className='w-full bg-slate-300 rounded-lg py-2 mt-4 hover:shadow-lg hover:bg-cerulean text-platinium transition-all'>
             Agregar cliente
           </button>
         </form>

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import VentanaDesplegable from "../../Components/VentanaDesplegable";
 import { useCarrito } from "../../Hooks/Carritos"; // Importa el contexto y el hook useCarrito
 import FormularioComprador from "./FormularioComprador";
-import AddIcon from '@mui/icons-material/Add'
 import ModalCrearProducto from "./ModalCrearProducto";
 import { SeleccionProvider } from "../../Hooks/Seleciones";
 import { Producto } from "../../Definitions/Interfaces/Producto";
@@ -15,6 +14,8 @@ export function CotizacionesPage() {
   const { carrito, nProductos } = useCarrito(); // Aquí usas directamente el valor del carrito desde el contexto
   const [listadoProductos, setListadoProductos] = useState<Producto[]>([]);
 
+  console.log(carrito.listaProductos)
+
   // Actualizar el estado listadoProductos cuando cambie la lista de productos del carrito
   useEffect(() => {
     setListadoProductos(carrito.listaProductos);
@@ -25,12 +26,14 @@ export function CotizacionesPage() {
       {/* Primera sección: Datos del usuario y tipo de contacto */}
       <section className="w-full">
         <VentanaDesplegable 
+          baseOpen={true}
           titular="Sección 1 - Datos del comprador y contacto"
           contenido={<FormularioComprador />}
         />
       </section>
 
       <VentanaDesplegable 
+      baseOpen={false}
       titular="Secciön 2 - Productos del Carrito"
       contenido={
         <section>
@@ -38,14 +41,13 @@ export function CotizacionesPage() {
             <ul className="space-y-3">
               {listadoProductos.map((producto, index) => {
                 return (
-                  <VentanaProductos producto={producto} key={index} />
+                  <VentanaProductos producto={producto} productIndex={index} key={index} />
                 )
               })}
             </ul>
           </section>
 
-          <section className="flex justify-center align-middle rounded-xl py-2 bg-indigo_dye mx-[2.5%] my-4 text-platinium hover:shadow-2xl hover:bg-cerulean hover:transition-all">
-            <AddIcon fontSize='medium' className="flex justify-center" />
+          <section className='w-full'>
             <SeleccionProvider>
               {/* Pasa la función actualizarCarrito al componente ModalCrearProducto */}
               <ModalCrearProducto />
@@ -56,6 +58,7 @@ export function CotizacionesPage() {
 
       <VentanaDesplegable 
       titular="Sección 3 - Descuento de la venta"
+      baseOpen={false}
       contenido={
         <section className="space-y-5 mt-3">
 
@@ -80,6 +83,7 @@ export function CotizacionesPage() {
 
       <VentanaDesplegable 
       titular="Sección 4 - Finalización de compra"
+      baseOpen={false}
       contenido={
         <section className="w-full gap-5 md:flex">
 

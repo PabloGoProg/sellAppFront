@@ -26,12 +26,6 @@ export class Ventana extends Producto {
       if(this.numeroCuerpos === 3) creacionPartes.enganche = this.medidas.alto * 4;
     }
 
-    if(this.exterior) {
-      creacionPartes.sillarAlfajia = this.medidas.ancho
-    } else {
-      creacionPartes.sillar = this.medidas.ancho
-    }
-
     this.partes = creacionPartes
   }
 
@@ -46,6 +40,15 @@ export class Ventana extends Producto {
 
   setExterior(exterior: boolean): void {
     this.exterior = exterior;
+    let partesTemporal = this.partes as PartesVentana;
+    if(this.exterior) {
+      partesTemporal.sillarAlfajia = this.medidas.ancho
+      partesTemporal.sillar = 0
+    } else {
+      partesTemporal.sillar = this.medidas.ancho
+      partesTemporal.sillarAlfajia = 0
+    }
+    this.partes = partesTemporal;
   }
 
   getExterior(): boolean {
