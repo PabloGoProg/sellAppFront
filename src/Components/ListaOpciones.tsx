@@ -45,7 +45,7 @@ export default function ListaOpciones(props: { opciones: string[], base: string,
                   key={key}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-cerulean text-white' : 'text-black'
+                      active ? 'bg-cerulean text-blue-500' : 'text-black'
                     }`
                   }
                   value={element}

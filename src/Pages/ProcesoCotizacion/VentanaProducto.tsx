@@ -1,11 +1,11 @@
-import { MouseEventHandler, useEffect, useState, Fragment } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import { Disclosure } from '@headlessui/react'
 import { Listbox, Transition } from '@headlessui/react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { Producto } from '../../Definitions/Interfaces/Producto';
 import ModalEliminar from './ModalEliminar';
 import FormVentana from './FormVentana';
-import RegistroProducto from './RegistroProducto';
+import { useCarrito } from '../../Hooks/Carritos';
 
 const aluminio = [
   { id: 1, name: 'Normal' },
@@ -16,10 +16,11 @@ const aluminio = [
 export default function VentanaProductos(props: {producto: Producto, productIndex: number}): JSX.Element {
   const [titulo, setTitulo] = useState<string>('');
   const [aluminioSeleccionado, setAluminioSeleccionado] = useState(aluminio[0])
+  const { carrito } = useCarrito();
 
   useEffect(() => {
     setTitulo(`${props.producto.constructor.name} - ${props.producto.refertenciaSeleccionada}: ${props.producto.medidas.alto}m x ${props.producto.medidas.ancho}m`);
-  }, [])
+  }, [carrito.listaProductos[props.productIndex]])
 
   return (
     <div className="w-full">
@@ -42,8 +43,8 @@ export default function VentanaProductos(props: {producto: Producto, productInde
                 
                   <section className='my-3'>
 
-                    <form className='flex flex-col md:grid md:grid-cols-2 gap-2'>
-                      <div className='mx-[5%] space-y-2'>
+                    <form className='flex flex-col md:grid md:grid-cols-2 gap-2 border-b-2'>
+                      <div className='mx-[5%] space-y-2 border-b-2 border-gray-300 py-5'>
                         <div className='flex items-center space-x-6 md:space-x-4'>
                           <p className='w-1/5'>Aluminio</p>
                           <Listbox
@@ -124,13 +125,6 @@ export default function VentanaProductos(props: {producto: Producto, productInde
                       </div>
                     </form>
 
-                  </section>
-
-                  <section className='grid grid-cols-2'>
-                    <section>
-                      <RegistroProducto producto={props.producto} />
-                    </section>
-                    <section></section>
                   </section>
 
               </Disclosure.Panel>

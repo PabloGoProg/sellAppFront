@@ -22,6 +22,7 @@ export function CarritoProvider({ children }: { children: React.ReactNode }): JS
   const actualizarCarrito = (carrito: CarritoCompras): void => {
     setCarrito(carrito);
     setNProductos(carrito.listaProductos.length);
+    localStorage.setItem('carritoActual', JSON.stringify(carrito));
   }
 
   const contextValue: CarritosContextValue = {

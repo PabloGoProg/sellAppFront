@@ -16,8 +16,13 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState< { correo: string, contrasena: string } | null >(null);
     const navigate = useNavigate();
 
+    const saveData = (data: { correo: string, contrasena: string }) => {
+        localStorage.setItem('dataSesion', JSON.stringify(data));
+    }
+
     const login = async (usuario: {correo: string, contrasena: string}) => {
         setUser(usuario);
+        saveData(usuario);
         navigate(PAGES.HOME);
     };
 
