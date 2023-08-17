@@ -6,6 +6,7 @@ import { Producto } from '../../Definitions/Interfaces/Producto';
 import ModalEliminar from './ModalEliminar';
 import FormVentana from './FormVentana';
 import { useCarrito } from '../../Hooks/Carritos';
+import CostesProducto from './CostesProducto';
 
 const aluminio = [
   { id: 1, name: 'Normal' },
@@ -16,11 +17,16 @@ const aluminio = [
 export default function VentanaProductos(props: {producto: Producto, productIndex: number}): JSX.Element {
   const [titulo, setTitulo] = useState<string>('');
   const [aluminioSeleccionado, setAluminioSeleccionado] = useState(aluminio[0])
+  const [cantidadProducto, setCantidadProducto] = useState<number>(1);
   const { carrito } = useCarrito();
 
+  const handleCantidad = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if(event.target.value !== '') setCantidadProducto(parseInt(event.target.value));
+  }
+
   useEffect(() => {
-    setTitulo(`${props.producto.constructor.name} - ${props.producto.refertenciaSeleccionada}: ${props.producto.medidas.alto}m x ${props.producto.medidas.ancho}m`);
-  }, [carrito.listaProductos[props.productIndex]])
+    setTitulo(`${props.producto.constructor.name} - ${props.producto.refertenciaSeleccionada}: ${props.producto.medidas.alto}m x ${props.producto.medidas.ancho}m ( ${cantidadProducto} )`);
+  }, [carrito.listaProductos[props.productIndex], cantidadProducto])
 
   return (
     <div className="w-full">
@@ -28,17 +34,21 @@ export default function VentanaProductos(props: {producto: Producto, productInde
         <Disclosure defaultOpen={false}>
           {({ open }) => (
             <>
-              <Disclosure.Button className={`botton-borrar flex w-full justify-between rounded-lg px-4 bg-white py-2 text-left text-base font-medium text-black focus:outline-none focus-visible:ring focus-visible:ring-platinium focus-visible:ring-opacity-75 ${open ? 'shadow-2xl' : ''}`}>
-                <span className='text-xs sm:text-sm'> {titulo} </span>
-                <div className='flex space-x-3'>
+              <div className='flex'>
+                <Disclosure.Button className={`botton-borrar flex w-full justify-between rounded-lg px-4 bg-white py-2 text-left text-base font-medium text-black focus:outline-none focus-visible:ring focus-visible:ring-platinium focus-visible:ring-opacity-75 ${open ? 'shadow-2xl' : ''}`}>
+                  <span className='text-xs py-1 sm:text-sm'> {titulo} </span>
+                  <div className='flex space-x-3'>
+                    <KeyboardArrowDownIcon
+                      className={`${
+                        open ? 'rotate-180 transform text-black' : ''
+                      } h-5 w-5 text-black`}
+                    />
+                  </div>
+                </Disclosure.Button>
+                <div className='absolute right-[11%] py-1'>
                   <ModalEliminar keyProducto={props.productIndex} />
-                  <KeyboardArrowDownIcon
-                    className={`${
-                      open ? 'rotate-180 transform text-black' : ''
-                    } h-5 w-5 text-black`}
-                  />
                 </div>
-              </Disclosure.Button>
+              </div>
               <Disclosure.Panel className={`px-1 pb-3 pt-2 text-sm text-black bg-gray-300 ${open ? 'bg-opacity-20 rounded-xl' : ''}`}>
                 
                   <section className='my-3'>
@@ -119,6 +129,19 @@ export default function VentanaProductos(props: {producto: Producto, productInde
                             </div>
                           </Listbox>
                         </div>
+                        <div className='flex justify-between items-center'>
+                          <span className='w-1/5'>Cantidad</span>
+                          <input type="number" id="cantidadProductos" name='cantidadProductos' defaultValue={cantidadProducto} required
+                          onChange={handleCantidad}
+                          className="w-3/5 md:w-4/5 shadow-md rounded-lg h-full border-none py-2.5 pl-3 pr-10 text-sm leading-5 text-black focus:ring-0" placeholder='Cantidad' />
+                        </div>
+                        <div className='flex justify-between items-center'>
+                          <span className='w-1/5'>Descuento</span>
+                          <input type="number" id="descuento" name='descuento' defaultValue={cantidadProducto} required
+                          onChange={handleCantidad}
+                          className="w-3/5 md:w-4/5 shadow-md rounded-lg h-full border-none py-2.5 pl-3 pr-10 text-sm leading-5 text-black focus:ring-0" placeholder='Cantidad' />
+                        </div>
+                        <CostesProducto produto={props.producto} cantidad={cantidadProducto} />
                       </div>
                       <div>
                         <FormVentana productIndex={props.productIndex}/>

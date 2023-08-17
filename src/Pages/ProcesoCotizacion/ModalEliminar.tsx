@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, MouseEventHandler, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { useCarrito } from '../../Hooks/Carritos';
 import DeleteIcon from '@mui/icons-material/Delete'
 
@@ -11,7 +11,8 @@ export default function ModalEliminar(props: { keyProducto: number }) {
     setIsOpen(false)
   }
 
-  function openModal() {
+  function openModal(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.stopPropagation();
     setIsOpen(true)
   }
 
