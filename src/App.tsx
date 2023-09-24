@@ -5,20 +5,20 @@ import { PAGES } from './utils/const';
 import { Header } from './Components/Header';
 import HomePage from './Pages/Home/HomePage';
 import { CarritoProvider } from './Hooks/Carritos';
-import { AuthProvider, PrrotectedRoute, useAuth } from './Hooks/Auth';
+import { AuthProvider, PrrotectedRoute } from './Hooks/Auth';
 
 function App (): JSX.Element {
-  const auth = useAuth();
-  auth?.logout();
 
   return (
     <>
       <BrowserRouter>
 
         <AuthProvider>
+
           <CarritoProvider>
 
-            {auth?.user && <Header />}
+            <Header />
+
             {/* Rutas principales */}
             <Routes>
               
@@ -34,6 +34,7 @@ function App (): JSX.Element {
             </Routes>
 
           </CarritoProvider>
+
         </AuthProvider>
 
       </BrowserRouter>

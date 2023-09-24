@@ -6,6 +6,7 @@ import { PAGES } from "../utils/const";
 
 interface AuthContextValue {
   user: {correo: string, contrasena: string} | null;
+  logged: boolean;
   login: (usuario: {correo: string, contrasena: string}) => void;
   logout: () => void;
 }
@@ -14,25 +15,33 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState< { correo: string, contrasena: string } | null >(null);
+    const [logged, setLogged] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const saveData = (data: { correo: string, contrasena: string }) => {
         localStorage.setItem('dataSesion', JSON.stringify(data));
     }
 
-    const login = async (usuario: {correo: string, contrasena: string}) => {
+    const login = (usuario: {correo: string, contrasena: string}) => {
         setUser(usuario);
         saveData(usuario);
+        setLogged(true);
         navigate(PAGES.HOME);
     };
 
     const logout = () => {
+        localStorage.removeItem('dataSesion');
         setUser(null);
-        console.log(user)
+        setLogged(false);
         navigate(PAGES.LOGIN);
     }
 
-    const auth = {user, login, logout};
+    const auth: AuthContextValue = {
+        user, 
+        logged, 
+        login, 
+        logout
+    };
 
     return (
         <AuthContext.Provider value={auth}>
@@ -51,8 +60,11 @@ export function PrrotectedRoute({ children }: { children: React.ReactNode }) {
 }
 
 function useAuth() {
-    const auth = useContext(AuthContext);
-    return auth;
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error("authContext debe ser utilizado dentro del proveedor authProvider");
+    }
+    return context;
 }
 
 export { AuthProvider, useAuth };

@@ -33,7 +33,9 @@ export function CarritoProvider({ children }: { children: React.ReactNode }): JS
     setNProductos
   };
 
-  return <CarritosContext.Provider value={contextValue}>{children}</CarritosContext.Provider>;
+  return <CarritosContext.Provider value={contextValue}>
+    {children}
+  </CarritosContext.Provider>;
 }
 
 // Hook personalizado para acceder al contexto

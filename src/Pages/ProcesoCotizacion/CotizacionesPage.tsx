@@ -5,10 +5,11 @@ import FormularioComprador from "./FormularioComprador";
 import ModalCrearProducto from "./ModalCrearProducto";
 import { SeleccionProvider } from "../../Hooks/Seleciones";
 import { Producto } from "../../Definitions/Interfaces/Producto";
-import VentanaProductos from "./VentanaProducto";
 import MoneyOffIcon from '@mui/icons-material/MoneyOff';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { generarFactura } from "../../utils/manejadorPDFs";
+import DesplegableVentana from "./DesplegableVentana";
 
 export function CotizacionesPage() {
   const { carrito, nProductos } = useCarrito(); // Aquí usas directamente el valor del carrito desde el contexto
@@ -41,9 +42,11 @@ export function CotizacionesPage() {
             <section className="my-3">
               <ul className="space-y-3">
                 {listadoProductos.map((producto, index) => {
-                  return (
-                    <VentanaProductos producto={producto} productIndex={index} key={index} />
-                  )
+                  if(producto.constructor.name === 'Ventana') {
+                    return (
+                      <DesplegableVentana producto={producto} productIndex={index} key={index} />
+                    )
+                  }
                 })}
               </ul>
             </section>
@@ -87,7 +90,10 @@ export function CotizacionesPage() {
           <section className="w-full gap-5 md:flex">
 
           <div className="w-full md:w-[70%] flex flex-col gap-4 justify-center my-4">
-            <button className="w-full rounded-xl hover:bg-cerulean hover:shadow-lg transition-all px-4 py-3 bg-indigo_dye text-white font-medium">
+            <button onClick={() => {
+              generarFactura(localStorage.getItem('carritoActual') as string)
+            }} 
+            className="w-full rounded-xl hover:bg-cerulean hover:shadow-lg transition-all px-4 py-3 bg-indigo_dye text-white font-medium">
               Guardar Borrador
             </button>
             <button className="w-full rounded-xl hover:bg-cerulean hover:shadow-lg transition-all px-4 py-3 bg-indigo_dye text-white font-medium">

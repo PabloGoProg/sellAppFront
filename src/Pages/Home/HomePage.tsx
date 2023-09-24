@@ -3,7 +3,7 @@ import AddIcon from '@mui/icons-material/Add'
 import { Aluminio } from '../../Definitions/Classes/Aluminio';
 import { CarritoCompras } from '../../Definitions/Classes/CarritoCompras'
 import { Empleado } from '../../Definitions/Classes/Empleado'
-import { Ventana } from '../../Definitions/Classes/Ventana';
+import { Ventana } from '../../Definitions/Classes/Ventana/Ventana';
 import { Vidrio } from '../../Definitions/Classes/Vidrio';
 import { Cotizacion } from './Cotizacion';
 import { useNavigate } from 'react-router-dom';

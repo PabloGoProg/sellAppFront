@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Switch } from '@headlessui/react'
 import { useCarrito } from '../../Hooks/Carritos'
-import { Ventana } from '../../Definitions/Classes/Ventana';
+import { Ventana } from '../../Definitions/Classes/Ventana/Ventana';
 import ListaOpciones from '../../Components/ListaOpciones';
 
 export default function FormVentana(props: { productIndex: number }): JSX.Element {
@@ -11,6 +11,7 @@ export default function FormVentana(props: { productIndex: number }): JSX.Elemen
 
   useEffect(() => {
     (carrito.carrito.listaProductos[props.productIndex] as Ventana).setExterior(enabled);
+    (carrito.carrito.listaProductos[props.productIndex] as Ventana).calcularCostoPartes();
     carrito.actualizarCarrito(carrito.carrito);
     setProducto(carrito.carrito.listaProductos[props.productIndex] as Ventana);
   }, [enabled])

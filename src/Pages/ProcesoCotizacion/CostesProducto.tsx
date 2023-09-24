@@ -15,14 +15,25 @@ export default function CostesProducto(props: { produto: Producto, cantidad: num
         <ShoppingCartIcon sx={{ fontSize: 50 }} />
       </section>
 
-      <section className='w-full text-xs md:text-sm lg:text-base font-semibold pl-2 md:pl-4 border-black text-gray-600' >
+      <section className='w-full text-xs md:text-sm lg:text-base font-normal pl-2 md:pl-4 border-black text-gray-600' >
         <div className='flex justify-between'>
           <p>Coste del producto: </p>
           <p className="text-green-600"> {`${showCurrency(props.produto.precio)} x ( ${props.cantidad} )`} </p>
         </div>
-        <div className='flex justify-between'>
+        {
+          props.cantidad > 1 ? (
+            <div className='flex justify-end'>
+              <p className="text-green-600"> {`${showCurrency(props.produto.precio * props.cantidad)}`} </p>
+            </div>
+          ) : (
+            <div className='flex justify-end'>
+              <p className="text-green-600"> {`${showCurrency(props.produto.precio)}`} </p>
+            </div>
+          )
+        }
+        <div className='flex justify-between border-b-2 border-black'>
           <p>Descuento: </p>
-          <p className='text-red-500'> {`${showCurrency(props.produto.descuento)} x ( ${props.cantidad} )` } </p>
+          <p className='text-red-500'> {`${showCurrency(props.produto.descuento)}` } </p>
         </div>
         <div className='flex justify-between'>
           <p>Coste final:</p>

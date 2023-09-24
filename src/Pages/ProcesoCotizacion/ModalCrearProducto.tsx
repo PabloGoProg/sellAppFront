@@ -5,7 +5,7 @@ import { PRODUCTOS_MANEJADOS } from '../../utils/constantes'
 import CheckIcon from '@mui/icons-material/Check';
 import { useCarrito } from '../../Hooks/Carritos';
 import { useSelección } from '../../Hooks/Seleciones';
-import { Ventana } from '../../Definitions/Classes/Ventana';
+import { Ventana } from '../../Definitions/Classes/Ventana/Ventana';
 import { Producto } from '../../Definitions/Interfaces/Producto';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
