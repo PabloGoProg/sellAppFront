@@ -22,6 +22,7 @@ export function CarritoProvider({ children }: { children: React.ReactNode }): JS
   const actualizarCarrito = (carrito: CarritoCompras): void => {
     setCarrito(carrito);
     setNProductos(carrito.listaProductos.length);
+    localStorage.setItem('carritoActual', JSON.stringify(carrito));
   }
 
   const contextValue: CarritosContextValue = {
@@ -32,7 +33,9 @@ export function CarritoProvider({ children }: { children: React.ReactNode }): JS
     setNProductos
   };
 
-  return <CarritosContext.Provider value={contextValue}>{children}</CarritosContext.Provider>;
+  return <CarritosContext.Provider value={contextValue}>
+    {children}
+  </CarritosContext.Provider>;
 }
 
 // Hook personalizado para acceder al contexto

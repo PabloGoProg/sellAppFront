@@ -3,9 +3,11 @@ import EmailIcon from '@mui/icons-material/Email'
 import LockIcon from '@mui/icons-material/Lock';
 import ModalContraseña from '../Login/ModalContraseña';
 import PersonIcon from '@mui/icons-material/Person';
+import { useAuth } from '../../Hooks/Auth';
 
 export function Login(): JSX.Element {
 
+  const auth = useAuth();
   const [forgotPassword, setForgotPassword] = useState<boolean>(false)
   const [userData, setUserData] = useState({
     correo: '',
@@ -27,11 +29,9 @@ export function Login(): JSX.Element {
     const passwordRegex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
 
     if(mailRegex.test(userData.correo) && passwordRegex.test(userData.contrasena)) {
-      console.log('Datos correctos')
+      auth?.login(userData);
     }
-
   }
-
 
   // *9999
   // 018000517677  

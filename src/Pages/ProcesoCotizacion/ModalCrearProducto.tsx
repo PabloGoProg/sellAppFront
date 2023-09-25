@@ -5,35 +5,43 @@ import { PRODUCTOS_MANEJADOS } from '../../utils/constantes'
 import CheckIcon from '@mui/icons-material/Check';
 import { useCarrito } from '../../Hooks/Carritos';
 import { useSelección } from '../../Hooks/Seleciones';
-import { Ventana } from '../../Definitions/Classes/Ventana';
+import { Ventana } from '../../Definitions/Classes/Ventana/Ventana';
 import { Producto } from '../../Definitions/Interfaces/Producto';
+import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function ModalCrearProducto() {
   const [isOpen, setIsOpen] = useState(false)
   const [medidas, setMedidas] = useState({ ancho: 0, alto: 0 })
-  const carrito = useCarrito();
+  const { carrito, actualizarCarrito } = useCarrito();
   const selec = useSelección();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMedidas({
       ...medidas,
-      [event.target.name]: event.target.value,
+      [event.target.name]: parseFloat(event.target.value),
     });
   };
 
   const handleCreateProduct = () => {
     let newProduct
+
+    // Genera una ventana con la referencia seleccionada
     if(selec.getSeleccion('Tipo de Producto') === 'Ventana') newProduct = new Ventana(medidas, selec.getSeleccion('Referencia'));
 
-    carrito.carrito.agregarProducto(newProduct as Producto);
-    carrito.actualizarCarrito(carrito.carrito);
+    carrito.agregarProducto(newProduct as Producto);
+    actualizarCarrito(carrito);
+  }
+
+  const handleCreate = () => {
+    if((selec.getSeleccion('Referencia') !== 'No encontrado' && selec.getSeleccion('Tipo de Producto') !== 'Tipo de Producto') && (medidas.alto > 0 && medidas.ancho > 0)) {
+      handleCreateProduct();
+      closeModal();
+    }
   }
 
   function closeModal() {
-    if((selec.getSeleccion('Referencia') !== 'No encontrado' && selec.getSeleccion('Tipo de Producto') !== 'Tipo de Producto') && (medidas.alto > 0 && medidas.ancho > 0)) {
-      handleCreateProduct();
-      setIsOpen(false)
-    }
+    setIsOpen(false)
   }
 
   function openModal() {
@@ -46,8 +54,9 @@ export default function ModalCrearProducto() {
         <button
           type="button"
           onClick={openModal}
-          className="w-full rounded-md px-4 py-1 text-sm font-medium text-platinium hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+          className="min-w-full flex justify-center items-center rounded-md bg-slate-300 px-4 gap-2 py-1 text-sm font-medium text-black hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
         >
+          <AddIcon />
           Añadir nuevo producto
         </button>
       </div>
@@ -77,7 +86,12 @@ export default function ModalCrearProducto() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-platinium p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <div className='absolute top-2 right-2 hover:bg-gray-200 hover:text-red-500'>
+                    <button onClick={closeModal} >
+                      <CloseIcon />
+                    </button> 
+                  </div>
                   <Dialog.Title
                     as="h3"
                     className="text-lg text-center font-medium leading-6 text-gray-900"
@@ -115,8 +129,8 @@ export default function ModalCrearProducto() {
                   <div className="flex mt-4 justify-center">
                     <button
                       type="button"
-                      className="w-full inline-flex justify-center rounded-md border border-transparent bg-white px-4 py-2 text-sm font-medium text-black hover:text-platinium hover:bg-cerulean focus:outline-none focus-visible:ring-2 focus-visible:ring-cerulean focus-visible:ring-offset-2 hover:shadow-lg transition-all gap-2 items-center"
-                      onClick={closeModal}
+                      className="w-full inline-flex justify-center rounded-md border border-transparent bg-slate-300 px-4 py-2 text-sm font-medium text-black hover:text-white hover:bg-slate-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 hover:shadow-lg transition-all gap-2 items-center"
+                      onClick={handleCreate}
                     >
                       Añadir al carrito
                       <CheckIcon fontSize='medium' />

@@ -9,15 +9,19 @@ import type { PartesVentana } from '../types'
  */
 export abstract class Producto extends Referenciacion {
   precio: number
+  descuento: number
+  cantidad: number
   medidas: { ancho: number, alto: number }
-  componentes: Array<[ComponenteProducto, number]>
+  componentes: ComponenteProducto[]
   partes: PartesVentana | {}
-  aluminio: Aluminio | undefined
+  aluminio?: Aluminio | undefined
   vidrio: Vidrio | undefined
 
   constructor(medidas: { ancho: number, alto: number }, referencia: string) {
     super()
     this.precio = 0
+    this.cantidad = 1
+    this.descuento = 0
     this.medidas = medidas
     this.refertenciaSeleccionada = referencia
     this.componentes = []
@@ -26,16 +30,16 @@ export abstract class Producto extends Referenciacion {
     this.vidrio = undefined
   }
 
-  calcularPrecio (referencia: string): number | string {
-    let precio = 0
+  abstract calcularCostoPartes(): void
+  abstract llenarPartes(): void
+  abstract calcularPrecioTotal(): void
+
+  calcularCostoComponentes(): number {
+    let suma = 0;
     this.componentes.forEach(componente => {
-      precio += componente[0].getPrecioUnidad() * componente[1]
+      suma += componente.cantidad * componente.precioUnidad;
     })
-    if (!this.referencias.has(referencia)) {
-      return 'La referencia que busca no existe'
-    }
-    this.precio = precio
-    return precio
+    return suma;
   }
 
   getPrecio (): number {
@@ -46,7 +50,7 @@ export abstract class Producto extends Referenciacion {
     return this.medidas
   }
 
-  getComponentes (): Array<[ComponenteProducto, number]> {
+  getComponentes (): ComponenteProducto[] {
     return this.componentes
   }
 

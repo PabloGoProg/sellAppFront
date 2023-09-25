@@ -35,8 +35,9 @@ export type PartesVentana = {
   jamba: number
   traslape: number
   enganche?: number
-  horizontalSuperior: number
-  horizontalInferior: number
+  horizontal?: number
+  horizontalSuperior?: number
+  horizontalInferior?: number
 }
 
 // --------------------------------------------------------------------------------------------------------
