@@ -13,22 +13,24 @@ import CloseIcon from '@mui/icons-material/Close';
 export default function ModalCrearProducto() {
   const [isOpen, setIsOpen] = useState(false)
   const [medidas, setMedidas] = useState({ ancho: 0, alto: 0 })
-  const carrito = useCarrito();
+  const { carrito, actualizarCarrito } = useCarrito();
   const selec = useSelección();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMedidas({
       ...medidas,
-      [event.target.name]: event.target.value,
+      [event.target.name]: parseFloat(event.target.value),
     });
   };
 
   const handleCreateProduct = () => {
     let newProduct
+
+    // Genera una ventana con la referencia seleccionada
     if(selec.getSeleccion('Tipo de Producto') === 'Ventana') newProduct = new Ventana(medidas, selec.getSeleccion('Referencia'));
 
-    carrito.carrito.agregarProducto(newProduct as Producto);
-    carrito.actualizarCarrito(carrito.carrito);
+    carrito.agregarProducto(newProduct as Producto);
+    actualizarCarrito(carrito);
   }
 
   const handleCreate = () => {

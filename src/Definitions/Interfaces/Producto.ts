@@ -10,6 +10,7 @@ import type { PartesVentana } from '../types'
 export abstract class Producto extends Referenciacion {
   precio: number
   descuento: number
+  cantidad: number
   medidas: { ancho: number, alto: number }
   componentes: Array<[ComponenteProducto, number]>
   partes: PartesVentana | {}
@@ -19,6 +20,7 @@ export abstract class Producto extends Referenciacion {
   constructor(medidas: { ancho: number, alto: number }, referencia: string) {
     super()
     this.precio = 0
+    this.cantidad = 1
     this.descuento = 0
     this.medidas = medidas
     this.refertenciaSeleccionada = referencia
@@ -41,6 +43,8 @@ export abstract class Producto extends Referenciacion {
   }
 
   abstract calcularCostoPartes(): void
+  abstract llenarPartes(): void
+  abstract calcularPrecioTotal(): void
 
   getPrecio (): number {
     return this.precio

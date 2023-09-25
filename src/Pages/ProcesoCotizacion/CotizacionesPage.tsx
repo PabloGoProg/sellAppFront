@@ -9,7 +9,7 @@ import MoneyOffIcon from '@mui/icons-material/MoneyOff';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { generarFactura } from "../../utils/manejadorPDFs";
-import DesplegableVentana from "./DesplegableVentana";
+import DesplegableVentana from "./DesplegableProducto";
 
 export function CotizacionesPage() {
   const { carrito, nProductos } = useCarrito(); // Aquí usas directamente el valor del carrito desde el contexto
