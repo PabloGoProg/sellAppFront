@@ -6,7 +6,7 @@ import { Material } from '../Interfaces/Material'
  */
 
 export class Aluminio extends Material {
-  constructor (precio: number) {
-    super(precio);
+  constructor (precio: number, referencia: string) {
+    super(precio, referencia);
   }
 }

@@ -15,8 +15,6 @@ export function CotizacionesPage() {
   const { carrito, nProductos } = useCarrito(); // Aquí usas directamente el valor del carrito desde el contexto
   const [listadoProductos, setListadoProductos] = useState<Producto[]>([]);
 
-  console.log(carrito.listaProductos)
-
   // Actualizar el estado listadoProductos cuando cambie la lista de productos del carrito
   useEffect(() => {
     setListadoProductos(carrito.listaProductos);

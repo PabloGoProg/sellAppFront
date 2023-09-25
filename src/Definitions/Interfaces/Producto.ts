@@ -12,7 +12,7 @@ export abstract class Producto extends Referenciacion {
   descuento: number
   cantidad: number
   medidas: { ancho: number, alto: number }
-  componentes: Array<[ComponenteProducto, number]>
+  componentes: ComponenteProducto[]
   partes: PartesVentana | {}
   aluminio?: Aluminio | undefined
   vidrio: Vidrio | undefined
@@ -30,21 +30,17 @@ export abstract class Producto extends Referenciacion {
     this.vidrio = undefined
   }
 
-  calcularPrecio (referencia: string): number | string {
-    let precio = 0
-    this.componentes.forEach(componente => {
-      precio += componente[0].getPrecioUnidad() * componente[1]
-    })
-    if (!this.referencias.has(referencia)) {
-      return 'La referencia que busca no existe'
-    }
-    this.precio = precio
-    return precio
-  }
-
   abstract calcularCostoPartes(): void
   abstract llenarPartes(): void
   abstract calcularPrecioTotal(): void
+
+  calcularCostoComponentes(): number {
+    let suma = 0;
+    this.componentes.forEach(componente => {
+      suma += componente.cantidad * componente.precioUnidad;
+    })
+    return suma;
+  }
 
   getPrecio (): number {
     return this.precio
@@ -54,7 +50,7 @@ export abstract class Producto extends Referenciacion {
     return this.medidas
   }
 
-  getComponentes (): Array<[ComponenteProducto, number]> {
+  getComponentes (): ComponenteProducto[] {
     return this.componentes
   }
 
